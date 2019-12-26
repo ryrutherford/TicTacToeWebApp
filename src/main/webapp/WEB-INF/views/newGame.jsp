@@ -11,10 +11,11 @@
 	
 <style>
 	.footer {
-		position: absolute;
+		position: fixed;
+		left:0;
 		bottom: 0;
 		width: 100%;
-		height: 60px;
+		height: 30px;
 		background-color: #F8F8FF;
 	}
 </style>
@@ -31,9 +32,9 @@
 	<p>Select the game details</p>
 	
 	<form action="newGame.do" method="post">
-		Board Width: <input type="text" name="width">
-		Number of Players: <input type="text" name="numPlayers">
-		Consecutive Inputs to Win: <input type="text" name="toWin">
+		Board Width: <input type="text" name="width" required>
+		Number of Players: <input type="text" name="numPlayers" required>
+		Consecutive Inputs to Win: <input type="text" name="toWin" required>
 		<input type="Submit" value="Start New Game">
 	</form>
 	

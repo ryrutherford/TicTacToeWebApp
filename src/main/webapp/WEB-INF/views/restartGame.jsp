@@ -11,10 +11,11 @@
 	
 <style>
 	.footer {
-		position: absolute;
+		position: fixed;
+		left:0;
 		bottom: 0;
 		width: 100%;
-		height: 60px;
+		height: 30px;
 		background-color: #F8F8FF;
 	}
 	.center-container{
@@ -34,11 +35,13 @@
 		<H1>Tic Tac Toe</H1>
 		<font color="green">${wonMessage}</font><br> <!-- printing out whether the game has been won -->
 		<form action="newGame.do" method="post">
-			Board Width: <input type="text" name="width"><br>
-			Consecutive Inputs to Win: <input type="text" name="toWin"><br>
+			Board Width: <input type="text" name="width" required><br>
+			Consecutive Inputs to Win: <input type="text" name="toWin" required><br>
 			<input type="hidden" name="numPlayers" value="${numPlayers}">
 			<input type="Submit" value="Restart Game">
-			<input type="Submit" formmethod="get" value ="Exit Game">
+		</form>
+		<form action="newGame.do" method="get">
+			<input type="Submit" value ="Exit Game">
 		</form>
 		
 	</div>

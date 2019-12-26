@@ -88,7 +88,7 @@ public class TicTacToe {
 							}
 						}
 						if(k == this.toWin) { //if we iterated through the whole loop then a player has won
-							retMessage = "Player " + cur + " has won! Congratulations.";
+							retMessage = "Player " + (char)(cur+65) + " has won! Congratulations.";
 							return retMessage;
 						}
 					}
@@ -131,7 +131,7 @@ public class TicTacToe {
 					}
 					
 					//COL CHECK
-					cur = this.board[j][i];
+					cur = this.board[i][j];
 					try {
 						for(k = 1; k < this.toWin; k++) {
 							prev = this.board[i-k][j];
@@ -148,6 +148,9 @@ public class TicTacToe {
 						//do nothing, array index out of bounds or negative index exception was thrown
 					}
 				}
+			}
+			if(this.getNumMoves() == this.size) {
+				retMessage = "It's a tie";
 			}
 			return retMessage;
 	}

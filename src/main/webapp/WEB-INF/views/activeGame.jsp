@@ -11,8 +11,12 @@
 	
 <style>
 	td {
-  		width: 100px;
-  		height: 100px;
+  		width: 50px;
+  		height: 50px;
+	}
+	td:hover{
+		background-color:#FFC0CB;
+		cursor: pointer;
 	}
 	table {
  		 margin: 5px auto;
@@ -25,16 +29,18 @@
  		border-top: 2px solid black;
   		border-bottom: 2px solid black;
 	}
-	.footer {
-		position: static;
+	.footer{
+		position: fixed;
+		left:0;
 		bottom: 0;
 		width: 100%;
-		height: 60px;
+		height: 30px;
 		background-color: #F8F8FF;
 	}
 	.center-container{
 		text-align: center;
 	}
+	
 </style>
 	
 </head>
@@ -57,7 +63,7 @@
 		<b>Player ${playerID}'s turn</b><br>
 	</div>
 	
-	<table>
+	<table id="table">
 	<c:forEach var="rowData" varStatus="row" items="${activeGame.board}">
 		<tr>
 		<c:forEach var="colData" varStatus="col" items="${rowData}">
@@ -115,17 +121,43 @@
 	</c:forEach>
 	</table>
 	
-	<div class="center-container">
-		<form action="activeGame.do" method="post">
+	<div class="center-container wrapper">
+		<!-- <form action="activeGame.do" method="post">
 			Row: <input type="text" name="row">
 			Column: <input type="text" name="col">
 			<input type="Submit" value="Make Move">
+		</form> -->
+		<form action="activeGame.do" method="post" id="moveMade">
+			<input type="hidden" name="row" id="row" value="null" required/>
+			<input type="hidden" name="col" id="col" value="null" required/>
+			<!-- <input type="submit" value="submit"> -->
 		</form>
 	</div>
 
 	<footer class="footer">
 		<p>Ry Rutherford</p>
 	</footer>
+	
+	<script>
+		var table = document.getElementById("table"),rIndex,cIndex;
+		 // table rows
+        for(var i = 0; i < table.rows.length; i++)
+        {
+            // row cells
+            for(var j = 0; j < table.rows[i].cells.length; j++)
+            {
+                table.rows[i].cells[j].onclick = function()
+                {
+                    rIndex = this.parentElement.rowIndex;
+                    cIndex = this.cellIndex;
+                    console.log("Row : "+rIndex+" , Cell : "+cIndex);
+                    document.getElementById("row").value = rIndex;
+                    document.getElementById("col").value = cIndex;
+                    document.getElementById("moveMade").submit();
+                };
+            }
+        }
+	</script>
 
 <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 <script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
