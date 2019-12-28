@@ -38,9 +38,7 @@ public class ActiveGameController extends HttpServlet{
 		String moveMessage = t.moveMade(request.getParameter("row"), request.getParameter("col"));
 		String wonMessage = t.gameWon();
 		if(wonMessage != null) {
-			//request.getSession().removeAttribute("activeGame"); //removing the current game
 			request.setAttribute("wonMessage", wonMessage); //setting the message for the winner
-			request.setAttribute("numPlayers", t.getNumPlayers());
 			request.getRequestDispatcher("/WEB-INF/views/restartGame.jsp").forward(request, response);
 		}
 		else {

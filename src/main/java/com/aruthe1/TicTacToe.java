@@ -11,6 +11,7 @@ public class TicTacToe {
 	int toWin;
 	int numMoves;
 	int numPlayers;
+	int[] wins;
 	
 	public TicTacToe(int width, int numPlayers, int toWin) {
 		//initializing the toWin
@@ -18,15 +19,22 @@ public class TicTacToe {
 		this.size = width*width;
 		this.width = width;
 			
-		//initializing the map
+		//initializing the board
 		this.board = new int[width][width];
 		for(int i = 0; i < this.width; i++) {
 			for(int j = 0; j < this.width; j++) {
 				this.board[i][j] = -1;
 			}
 		}
+	
 		//initializing the numPlayers
 		this.numPlayers = numPlayers;	
+		
+		//initializing the wins array
+		this.wins = new int[this.numPlayers];
+		for(int i = 0; i < this.numPlayers; i++) {
+			this.wins[i] = 0;
+		}
 		//randomly assigns the first turn to player 0-numPlayers-1
 		this.turn = (int)(this.numPlayers*Math.random());
 	}
@@ -89,6 +97,7 @@ public class TicTacToe {
 						}
 						if(k == this.toWin) { //if we iterated through the whole loop then a player has won
 							retMessage = "Player " + (char)(cur+65) + " has won! Congratulations.";
+							this.wins[cur]++;
 							return retMessage;
 						}
 					}
@@ -106,6 +115,7 @@ public class TicTacToe {
 						}
 						if(k == this.toWin) { //if we iterated through the whole loop then a player has won
 							retMessage = ("Player " + (char)(cur+65) + " has won! Congratulations.");
+							this.wins[cur]++;
 							return retMessage;
 						}
 					}
@@ -123,6 +133,7 @@ public class TicTacToe {
 						}
 						if(k == this.toWin) { //if we iterated through the whole loop then a player has won
 							retMessage = ("Player " + (char)(cur+65) + " has won! Congratulations.");
+							this.wins[cur]++;
 							return retMessage;
 						}
 					}
@@ -141,6 +152,7 @@ public class TicTacToe {
 						}
 						if(k == this.toWin) { //if we iterated through the whole loop then a player has won
 							retMessage = "Player " + (char)(cur+65) + " has won! Congratulations.";
+							this.wins[cur]++;
 							return retMessage;
 						}
 					}
@@ -180,5 +192,15 @@ public class TicTacToe {
 	}
 	public int getNumMoves() {
 		return this.numMoves;
+	}
+	public int[] getWins(){
+		return this.wins;
+	}
+	
+	/*
+	 * SETTER FOR WINS
+	 */
+	public void setWins(int[] wins) {
+		this.wins = wins;
 	}
 }

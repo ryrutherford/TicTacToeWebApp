@@ -10,39 +10,48 @@
 	rel="stylesheet">
 	
 <style>
-	.footer {
-		position: fixed;
-		left:0;
-		bottom: 0;
-		width: 100%;
-		height: 30px;
-		background-color: #F8F8FF;
+	.center-container{
+		text-align: center;
+	}
+	input{
+		width : 300px;
+		margin: 0;
+		box-sizing: border-box;
 	}
 </style>
 </head>
 <body>
 
 <nav class="navbar navbar-dark bg-dark">
-
-		<a href="https://www.github.com/ryrutherford" class="navbar-brand">Github</a>
-
+		<span class="navbar-text">Tic Tac Toe</span>
+		<a href="https://www.github.com/ryrutherford" class="navbar-brand">Github</a>	
 </nav>
-<div class="container">
+<div class="center-container">
 	<p><font color="red">${error}</font></p>
-	<p>Select the game details</p>
+	<h2>Enter Game Details</h2>
 	
 	<form action="newGame.do" method="post">
-		Board Width: <input type="text" name="width" required>
-		Number of Players: <input type="text" name="numPlayers" required>
-		Consecutive Inputs to Win: <input type="text" name="toWin" required>
+		<input type="text" name="width" placeholder="Board Width" required><br>
+		<input type="text" name="numPlayers" placeholder="Number of Players" required><br>
+		<input type="text" name="toWin" placeholder="Consecutive Marks to Win"required><br>
 		<input type="Submit" value="Start New Game">
 	</form>
 	
 </div>
 
-<footer class="footer">
-		<p>Ry Rutherford</p>
-	</footer>
+	<script>
+		//prevents form resubmissions
+	    if (window.history.replaceState) {
+	        window.history.replaceState(null, null, window.location.href);
+	    }
+		
+		//prevents going back one page
+	    history.pushState(null, document.title, location.href);
+	    window.addEventListener('popstate', function (event)
+	    {
+	      history.pushState(null, document.title, location.href);
+	    });
+	</script>
 
 <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 <script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>

@@ -10,16 +10,23 @@
 	rel="stylesheet">
 	
 <style>
-	td {
+	table.table1 {
+ 		 margin: 5px auto;
+	}
+	table.table1 td {
   		width: 50px;
   		height: 50px;
 	}
-	td:hover{
+	table.table1 td:hover{
 		background-color:#FFC0CB;
 		cursor: pointer;
 	}
-	table {
- 		 margin: 5px auto;
+	table.table2 {
+		margin: 5px auto;
+	}
+	table.table2 td{
+		width: 150px;
+		height: 50px;
 	}
 	.vert {
   		border-left: 2px solid black;
@@ -29,30 +36,20 @@
  		border-top: 2px solid black;
   		border-bottom: 2px solid black;
 	}
-	.footer{
-		position: fixed;
-		left:0;
-		bottom: 0;
-		width: 100%;
-		height: 30px;
-		background-color: #F8F8FF;
-	}
 	.center-container{
 		text-align: center;
 	}
-	
 </style>
 	
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark">
-
+		<span class="navbar-text">Tic Tac Toe</span>
 		<a href="https://www.github.com/ryrutherford" class="navbar-brand">Github</a>
 
 </nav>
 
 	<div class="center-container">
-		<H1>Tic Tac Toe</H1>
 		<h2>Game Details</h2>
 		<i>Board Width: ${activeGame.width}<br>
 		Number of Players: ${activeGame.numPlayers}<br>
@@ -63,7 +60,7 @@
 		<b>Player ${playerID}'s turn</b><br>
 	</div>
 	
-	<table id="table">
+	<table class="table1" id="table">
 	<c:forEach var="rowData" varStatus="row" items="${activeGame.board}">
 		<tr>
 		<c:forEach var="colData" varStatus="col" items="${rowData}">
@@ -122,41 +119,60 @@
 	</table>
 	
 	<div class="center-container wrapper">
-		<!-- <form action="activeGame.do" method="post">
-			Row: <input type="text" name="row">
-			Column: <input type="text" name="col">
-			<input type="Submit" value="Make Move">
-		</form> -->
 		<form action="activeGame.do" method="post" id="moveMade">
 			<input type="hidden" name="row" id="row" value="null" required/>
 			<input type="hidden" name="col" id="col" value="null" required/>
-			<!-- <input type="submit" value="submit"> -->
 		</form>
 	</div>
-
-	<footer class="footer">
-		<p>Ry Rutherford</p>
-	</footer>
+	
+	<!-- LEADERBOARD TABLE -->
+	<div class="center-container">
+		<br>
+		<h4>Number of Wins</h4>
+		<table class="table2">
+			<tr>
+				<c:forEach var="winData" varStatus="i" items="${activeGame.wins}">
+					<c:set var="player" value="&\#${i.index + 65}"/>
+					<td><i>Player ${player}</i>: <b>${winData}</b></td>
+				</c:forEach>
+			</tr>
+		</table>
+	</div>
 	
 	<script>
+	/*
+	* JS to detect when a user clicks on a table entry and make a move
+	*/
 		var table = document.getElementById("table"),rIndex,cIndex;
-		 // table rows
+		 //table rows
         for(var i = 0; i < table.rows.length; i++)
         {
-            // row cells
+            //row cells
             for(var j = 0; j < table.rows[i].cells.length; j++)
             {
                 table.rows[i].cells[j].onclick = function()
                 {
                     rIndex = this.parentElement.rowIndex;
                     cIndex = this.cellIndex;
-                    console.log("Row : "+rIndex+" , Cell : "+cIndex);
                     document.getElementById("row").value = rIndex;
                     document.getElementById("col").value = cIndex;
                     document.getElementById("moveMade").submit();
                 };
             }
         }
+    
+    	//prevents form resubmissions
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    	
+    	
+    	//prevents going back one page
+        history.pushState(null, document.title, location.href);
+        window.addEventListener('popstate', function (event)
+        {
+          history.pushState(null, document.title, location.href);
+        });
 	</script>
 
 <script src="webjars/jquery/1.9.1/jquery.min.js"></script>

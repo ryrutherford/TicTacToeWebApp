@@ -40,10 +40,17 @@ public class NewGameController extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/views/newGame.jsp").forward(request, response);
 		}
 		else {
+			int[] wins = null;
+			if(request.getParameterValues("placeholder") != null) {
+				wins = activeGame.getWins();
+			}
 			int w = Integer.parseInt(width);
 			int nP = Integer.parseInt(numPlayers);
 			int tW = Integer.parseInt(toWin);
 			activeGame = new TicTacToe(w,nP,tW);
+			if(wins != null) {
+				activeGame.setWins(wins);
+			}
 			HttpSession session = request.getSession();
 			session.setAttribute("activeGame", activeGame);
 			response.sendRedirect("/activeGame.do");
